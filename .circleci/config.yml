@@ -40,6 +40,19 @@ jobs:
       - go/load-cache
       - go/mod-download
       - go/save-cache
+      - run:
+          name: Run tests
+          command: |
+            mkdir -p /tmp/test-reports
+            gotestsum --junitfile /tmp/test-reports/unit-tests.xml -- -race -cover ./...
+            go test -timeout 30s -run ^TestSlack$ epgstation_notification/tests
+            go test -timeout 30s -run ^Test_send$ epgstation_notification/tests
+            go test -v -cover -coverprofile=/tmp/test-reports/coverage.out ./...
+      - store_artifacts:
+          path: /tmp/artifact
+          destination: artifact
+      - store_test_results:
+          path: /tmp/test-reports
       - attach_workspace:
           at: /tmp/artifact
       - run:
@@ -53,8 +66,6 @@ jobs:
             zip -r epgstation-notification.zip epgstation-notification/
             mkdir -p /tmp/artifact
             mv epgstation-notification.zip /tmp/artifact/
-
-            
       - run:
           name: "Publish Release on GitHub"
           command: |
