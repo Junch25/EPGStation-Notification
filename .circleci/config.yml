@@ -1,26 +1,75 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  build:
+    executor:
+      name: go/default
+      tag: '1.18'
     steps:
       - checkout
+      - go/load-cache
+      - go/mod-download
+      - go/save-cache
+      - go/test:
+          covermode: atomic
+          failfast: true
+          race: true
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: Run tests
+          command: |
+            mkdir -p /tmp/test-reports
+            gotestsum --junitfile /tmp/test-reports/unit-tests.xml -- -race -cover ./...
+            go test -timeout 30s -run ^TestSlack$ epgstation_notification/tests
+            go test -timeout 30s -run ^Test_send$ epgstation_notification/tests
+            go test -v -cover -coverprofile=/tmp/test-reports/coverage.out ./...
+      - run:
+          name: build
+          command: | 
+            mkdir -p /tmp/artifact
+            GOOS=linux GOARCH=amd64 go build -o "epgstation-notification"
+            mv epgstation-notification /tmp/artifact
+      - store_artifacts:
+          path: /tmp/artifact
+          destination: artifact
+      - store_test_results:
+          path: /tmp/test-reports
+  release:
+    executor:
+      name: go/default
+      tag: '1.18'
+    steps:
+      - checkout
+      - go/load-cache
+      - go/mod-download
+      - go/save-cache
+      - attach_workspace:
+          at: /tmp/artifact
+      - run:
+          name: deploy
+          command: | 
+            mkdir -p /tmp/epgstation-notification
+            GOOS=linux GOARCH=amd64 go build -o "epgstation-notification"
+            mv epgstation-notification /tmp/epgstation-notification
+            cp bin/config.yml /tmp/epgstation-notification
+            cd  /tmp
+            zip -r epgstation-notification.zip epgstation-notification/
+            mkdir -p /tmp/artifact
+            mv epgstation-notification.zip /tmp/artifact/
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+            
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            go install github.com/tcnksm/ghr
+            VERSION=1.3.1
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/artifact
+
+orbs:
+  go: circleci/go@1.7.1
+version: 2.1
 workflows:
-  say-hello-workflow:
+  build:
     jobs:
-      - say-hello
+      - build
+  release:
+    jobs:
+      - release
