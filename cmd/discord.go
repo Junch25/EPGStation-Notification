@@ -56,7 +56,6 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 		CHType      = env.ChannelType
 		Description = env.Description
 		RecPath     = env.RecPath
-		LogPath     = env.LogPath
 	)
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
@@ -76,10 +75,6 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 					{
 						Name:  "RecPath",
 						Value: RecPath,
-					},
-					{
-						Name:  "LogPath",
-						Value: LogPath,
 					},
 				},
 			}).Build(),

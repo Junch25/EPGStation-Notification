@@ -24,7 +24,6 @@ func Slack(Icon string, Col string) error {
 		CHType      = Env.ChannelType
 		Description = Env.Description
 		RecPath     = Env.RecPath
-		LogPath     = Env.LogPath
 		SlackKey    = Cfg.SlackCfg.SlackToken
 	)
 
@@ -50,11 +49,6 @@ func Slack(Icon string, Col string) error {
 			{
 				Title: "RecPath",
 				Value: RecPath,
-				Short: false,
-			},
-			{
-				Title: "LogPath",
-				Value: LogPath,
 				Short: false,
 			},
 		},
