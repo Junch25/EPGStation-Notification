@@ -1,0 +1,7 @@
+slack-config:
+  slack-token: "SLACK_API_TOKEN"
+  channel: "SLACK_CHANNEL_ID"
+
+discord-config:
+  discord-webhook-token: "DISCORD_API_TOKEN"
+  discord-webhook: "DISCORD_API_WEBHOOK"
