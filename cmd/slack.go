@@ -24,7 +24,6 @@ func Slack(Icon string, Col string) error {
 		CHType      = Env.ChannelType
 		Description = Env.Description
 		RecPath     = Env.RecPath
-		LogPath     = Env.LogPath
 		SlackKey    = Cfg.SlackCfg.SlackToken
 	)
 
