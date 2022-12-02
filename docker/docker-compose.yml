@@ -1,0 +1,9 @@
+version: '3'
+services:
+
+  go:
+    build: ./build
+    container_name: '${COMPOSE_PROJECT_NAME}'
+    tty: true
+    volumes:
+      - "../../epgstation-notification/:/opt/src"
