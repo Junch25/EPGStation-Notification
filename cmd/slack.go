@@ -52,11 +52,6 @@ func Slack(Icon string, Col string) error {
 				Value: RecPath,
 				Short: false,
 			},
-			{
-				Title: "LogPath",
-				Value: LogPath,
-				Short: false,
-			},
 		},
 	}
 	channelID, timestamp, err := api.PostMessage(

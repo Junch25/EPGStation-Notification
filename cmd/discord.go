@@ -77,10 +77,6 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 						Name:  "RecPath",
 						Value: RecPath,
 					},
-					{
-						Name:  "LogPath",
-						Value: LogPath,
-					},
 				},
 			}).Build(),
 	); err != nil {
