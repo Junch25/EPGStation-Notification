@@ -52,18 +52,21 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 	}
 
 	var (
-		Name    = Env.Name
-		CHName  = Env.ChannelName
-		CHType  = Env.ChannelType
-		StartAt = Env.StartAt
-		EndAt   = Env.EndAt
-		// Durarion    = Env.Durarion
+		Name        = Env.Name
+		CHName      = Env.ChannelName
+		CHType      = Env.ChannelType
+		StartAt     = Env.StartAt
+		EndAt       = Env.EndAt
 		Description = Env.Description
 		RecPath     = Env.RecPath
 	)
 
-	StartAtFromUnix := time.Unix(int64(StartAt/1000), 0).Local().Format("2022-12-01 11:00:00")
-	EndAtFromUnix := time.Unix(int64(EndAt/1000), 0).String()
+	StartAtFromUnix := time.Unix(int64(StartAt/1000), 0)
+	StartTime := StartAtFromUnix.Format("2006-01-00 12:00")
+	fmt.Println(StartTime)
+	EndAtFromUnix := time.Unix(int64(EndAt/1000), 0)
+	EndTime := EndAtFromUnix.Format("2006-01-00 12:00")
+	fmt.Println(EndTime)
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
 		SetEmbeds(
@@ -77,7 +80,7 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 					},
 					{
 						Name:  "Time",
-						Value: StartAtFromUnix + " ~ " + EndAtFromUnix,
+						Value: StartTime + " ~ " + EndTime,
 					},
 					{
 						Name:  "Description",
