@@ -62,10 +62,10 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 	)
 
 	StartAtFromUnix := time.Unix(int64(StartAt/1000), 0)
-	StartTime := StartAtFromUnix.Format("2006-01-00 12:00")
+	StartTime := StartAtFromUnix.Format("2006-01-02 15:04")
 	fmt.Println(StartTime)
 	EndAtFromUnix := time.Unix(int64(EndAt/1000), 0)
-	EndTime := EndAtFromUnix.Format("2006-01-00 12:00")
+	EndTime := EndAtFromUnix.Format("2006-01-02 15:04")
 	fmt.Println(EndTime)
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
