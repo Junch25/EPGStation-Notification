@@ -15,14 +15,14 @@ func DiscordSend(Icon string, Col int) error {
 	log.SetLevel(log.LevelDebug)
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	cfg, err := loadCfg()
+	Cfg, err := loadCfg()
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
 
 	var (
-		webhookID    = snowflake.ID(cfg.DiscordCfg.DiscordWebhookId)
-		webhookToken = cfg.DiscordCfg.DiscordWebhookToken
+		webhookID    = snowflake.ID(Cfg.DiscordCfg.DiscordWebhookId)
+		webhookToken = Cfg.DiscordCfg.DiscordWebhookToken
 	)
 
 	fmt.Println(webhookID)
@@ -45,17 +45,20 @@ func DiscordSend(Icon string, Col int) error {
 // send(s) a message to the webhook
 func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 	defer wg.Done()
-	env, err := loadEnv()
+	Env, err := loadEnv()
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
 
 	var (
-		Name        = env.Name
-		CHName      = env.ChannelName
-		CHType      = env.ChannelType
-		Description = env.Description
-		RecPath     = env.RecPath
+		Name        = Env.Name
+		CHName      = Env.ChannelName
+		CHType      = Env.ChannelType
+		StartAt     = Env.StartAt
+		EndAt       = Env.EndAt
+		Durarion    = Env.Durarion
+		Description = Env.Description
+		RecPath     = Env.RecPath
 	)
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
@@ -67,6 +70,10 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 					{
 						Name:  "Channel",
 						Value: CHName + "/" + CHType,
+					},
+					{
+						Name:  "Time",
+						Value: StartAt + "~" + EndAt + " (" + Durarion + " )",
 					},
 					{
 						Name:  "Description",
