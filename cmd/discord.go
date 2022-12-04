@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"sync"
 	"time"
 
@@ -61,9 +62,16 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 		Description = Env.Description
 		RecPath     = Env.RecPath
 	)
-
-	StartAtFromUnix := time.Unix(0, int64(StartAt)).UTC().String()
-	EndAtFromUnix := time.Unix(0, int64(EndAt)).UTC().String()
+	Start, err := strconv.ParseInt(StartAt, 10, 64)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+	End, err := strconv.ParseInt(EndAt, 10, 64)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+	StartAtFromUnix := time.Unix(0, Start).UTC().String()
+	EndAtFromUnix := time.Unix(0, End).UTC().String()
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
 		SetEmbeds(
