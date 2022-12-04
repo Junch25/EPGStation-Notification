@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/slack-go/slack"
 )
@@ -24,11 +25,17 @@ func Slack(Icon string, Col string) error {
 		CHType      = Env.ChannelType
 		StartAt     = Env.StartAt
 		EndAt       = Env.EndAt
-		Durarion    = Env.Durarion
 		Description = Env.Description
 		RecPath     = Env.RecPath
 		SlackKey    = Cfg.SlackCfg.SlackToken
 	)
+
+	StartAtFromUnix := time.Unix(int64(StartAt/1000), 0)
+	StartTime := StartAtFromUnix.Format("2006-01-02 15:04")
+	fmt.Println(StartTime)
+	EndAtFromUnix := time.Unix(int64(EndAt/1000), 0)
+	EndTime := EndAtFromUnix.Format("2006-01-02 15:04")
+	fmt.Println(EndTime)
 
 	api := slack.New(
 		SlackKey,
@@ -46,7 +53,7 @@ func Slack(Icon string, Col string) error {
 			},
 			{
 				Title: "Time",
-				Value: StartAt + "~" + EndAt + " (" + Durarion + " )",
+				Value: StartTime + " ~ " + EndTime,
 				Short: false,
 			},
 			{
