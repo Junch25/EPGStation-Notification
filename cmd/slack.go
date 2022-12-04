@@ -31,9 +31,9 @@ func Slack(Icon string, Col string) error {
 		SlackKey    = Cfg.SlackCfg.SlackToken
 	)
 
-	StartAtFromUnix := time.Unix(StartAt, 0).String()
-	EndAtFromUnix := time.Unix(EndAt, 0).String()
-	DurarionFromUnix := time.Unix(Durarion, 0).String()
+	StartAtFromUnix := time.Unix(StartAt/1000000000, StartAt%1000000000).String()
+	EndAtFromUnix := time.Unix(EndAt/1000000000, EndAt%1000000000).String()
+	DurarionFromUnix := time.Unix(0, Durarion).String()
 
 	api := slack.New(
 		SlackKey,
