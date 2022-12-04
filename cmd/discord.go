@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/disgoorg/disgo/discord"
 	"github.com/disgoorg/disgo/webhook"
@@ -61,6 +62,10 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 		RecPath     = Env.RecPath
 	)
 
+	StartAtFromUnix := time.Unix(StartAt, 0).String()
+	EndAtFromUnix := time.Unix(EndAt, 0).String()
+	DurarionFromUnix := time.Unix(Durarion, 0).String()
+
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
 		SetEmbeds(
 			discord.Embed{
@@ -73,7 +78,7 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 					},
 					{
 						Name:  "Time",
-						Value: StartAt + "~" + EndAt + " (" + Durarion + " )",
+						Value: StartAtFromUnix + " ~ " + EndAtFromUnix + " (" + DurarionFromUnix + " )",
 					},
 					{
 						Name:  "Description",

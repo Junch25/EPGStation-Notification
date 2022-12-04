@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/slack-go/slack"
 )
@@ -30,6 +31,10 @@ func Slack(Icon string, Col string) error {
 		SlackKey    = Cfg.SlackCfg.SlackToken
 	)
 
+	StartAtFromUnix := time.Unix(StartAt, 0).String()
+	EndAtFromUnix := time.Unix(EndAt, 0).String()
+	DurarionFromUnix := time.Unix(Durarion, 0).String()
+
 	api := slack.New(
 		SlackKey,
 		slack.OptionDebug(true),
@@ -46,7 +51,7 @@ func Slack(Icon string, Col string) error {
 			},
 			{
 				Title: "Time",
-				Value: StartAt + "~" + EndAt + " (" + Durarion + " )",
+				Value: StartAtFromUnix + " ~ " + EndAtFromUnix + " (" + DurarionFromUnix + " )",
 				Short: false,
 			},
 			{
