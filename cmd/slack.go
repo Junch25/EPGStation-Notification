@@ -22,6 +22,9 @@ func Slack(Icon string, Col string) error {
 		Name        = Env.Name
 		CHName      = Env.ChannelName
 		CHType      = Env.ChannelType
+		StartAt     = Env.StartAt
+		EndAt       = Env.EndAt
+		Durarion    = Env.Durarion
 		Description = Env.Description
 		RecPath     = Env.RecPath
 		SlackKey    = Cfg.SlackCfg.SlackToken
@@ -39,6 +42,11 @@ func Slack(Icon string, Col string) error {
 			{
 				Title: "Channel",
 				Value: CHName + "/" + CHType,
+				Short: false,
+			},
+			{
+				Title: "Time",
+				Value: StartAt + "~" + EndAt + " (" + Durarion + " )",
 				Short: false,
 			},
 			{

@@ -19,7 +19,7 @@ $ git clone https://github.com/Junch25/EPGStation-Notification.git
 ```shell script
 # 編集
 $ cd epgstation_notification
-$ sudo vim bin/config.yml
+$ vim bin/config.yml
 slack-config:
   slack-token: "SLACK_API_TOKEN"
   channel: "SLACK_CHANNEL_ID"
@@ -31,7 +31,6 @@ discord-config:
 
 ### EPGStationへ設定追加
 ```shell script
-# v2
 $ vim /path/to/config/config.yml
 # Slack
 ---
@@ -44,25 +43,6 @@ recordingFailedCommand: "/path/to/bin/epgstation-notification slackRecError"
 recordingStartCommand: "/path/to/bin/epgstation-notification discordRecStart"
 recordingFinishCommand: "/path/to/bin/epgstation-notification discordRecEnd"
 recordingFailedCommand: "/path/to/bin/epgstation-notification discordRecError"
-
-
-# v1
-$ vim /path/to/config/config.json
-# Slack
----
-{
-  "recordedStartCommand": "/path/to/bin/epgstation-notification slackRecStart",
-  "recordedEndCommand": "/path/to/bin/epgstation-notification slackRecEnd",
-  "recordedFailedCommand": "/path/to/bin/epgstation-notification slackRecError"
-}
-
-# Discord
----
-{
-  "recordedStartCommand": "/path/to/bin/epgstation-notification discordRecStart",
-  "recordedEndCommand": "/path/to/bin/epgstation-notification discordRecEnd",
-  "recordedFailedCommand": "/path/to/bin/epgstation-notification discordRecError"
-}
 ```
 ### EPGStation再起動
 ```shell script
