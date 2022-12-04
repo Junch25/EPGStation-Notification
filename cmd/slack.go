@@ -20,19 +20,19 @@ func Slack(Icon string, Col string) error {
 	}
 
 	var (
-		Name        = Env.Name
-		CHName      = Env.ChannelName
-		CHType      = Env.ChannelType
-		StartAt     = Env.StartAt
-		EndAt       = Env.EndAt
-		Durarion    = Env.Durarion
+		Name    = Env.Name
+		CHName  = Env.ChannelName
+		CHType  = Env.ChannelType
+		StartAt = Env.StartAt
+		EndAt   = Env.EndAt
+		// Durarion    = Env.Durarion
 		Description = Env.Description
 		RecPath     = Env.RecPath
 		SlackKey    = Cfg.SlackCfg.SlackToken
 	)
 
-	StartAtFromUnix := time.Unix(StartAt/1000000000, StartAt%1000000000).String()
-	EndAtFromUnix := time.Unix(EndAt/1000000000, EndAt%1000000000).String()
+	StartAtFromUnix := time.Unix(int64(StartAt), 0).Local().String()
+	EndAtFromUnix := time.Unix(int64(EndAt), 0).Local().String()
 
 	api := slack.New(
 		SlackKey,
@@ -50,7 +50,7 @@ func Slack(Icon string, Col string) error {
 			},
 			{
 				Title: "Time",
-				Value: StartAtFromUnix + " ~ " + EndAtFromUnix + " (" + Durarion + ")",
+				Value: StartAtFromUnix + " ~ " + EndAtFromUnix + " (" + "Durarion" + ")",
 				Short: false,
 			},
 			{
