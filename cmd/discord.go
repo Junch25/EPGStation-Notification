@@ -70,8 +70,8 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
-	StartAtFromUnix := time.Unix(0, Start).Format("yyyy/MM/dd HH:mm:ss")
-	EndAtFromUnix := time.Unix(0, End).Format("yyyy/MM/dd HH:mm:ss")
+	StartAtFromUnix := time.Unix(0, Start).Format("2022/12/01 12:00:00")
+	EndAtFromUnix := time.Unix(0, End).Format("2022/12/01 12:00:00")
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
 		SetEmbeds(
