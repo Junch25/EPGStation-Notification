@@ -62,9 +62,9 @@ func send(wg *sync.WaitGroup, client webhook.Client, Icon string, Col int) {
 		RecPath     = Env.RecPath
 	)
 
-	StartAtFromUnix := time.Unix(StartAt/1000000, StartAt%1000000).String()
-	EndAtFromUnix := time.Unix(EndAt/1000000, EndAt%1000000).String()
-	DurarionFromUnix := time.Unix(0, Durarion).String()
+	StartAtFromUnix := time.Unix(0, StartAt).String()
+	EndAtFromUnix := time.Unix(0, EndAt).String()
+	DurarionFromUnix := time.Unix(Durarion, 0).String()
 
 	if _, err := client.CreateMessage(discord.NewWebhookMessageCreateBuilder().
 		SetEmbeds(
