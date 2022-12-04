@@ -33,7 +33,6 @@ func Slack(Icon string, Col string) error {
 
 	StartAtFromUnix := time.Unix(StartAt/1000000000, StartAt%1000000000).String()
 	EndAtFromUnix := time.Unix(EndAt/1000000000, EndAt%1000000000).String()
-	DurarionFromUnix := time.Unix(0, Durarion).String()
 
 	api := slack.New(
 		SlackKey,
@@ -51,7 +50,7 @@ func Slack(Icon string, Col string) error {
 			},
 			{
 				Title: "Time",
-				Value: StartAtFromUnix + " ~ " + EndAtFromUnix + " (" + DurarionFromUnix + " )",
+				Value: StartAtFromUnix + " ~ " + EndAtFromUnix + " (" + Durarion + ")",
 				Short: false,
 			},
 			{
