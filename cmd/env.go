@@ -14,7 +14,7 @@ type cmdEnv struct {
 	ChannelName string `envconfig:"CHANNELNAME"`
 	StartAt     int64  `envconfig:"STARTAT"`
 	EndAt       int64  `envconfig:"ENDAT"`
-	Durarion    int64  `envconfig:"DURATION"`
+	Durarion    string `envconfig:"DURATION"`
 	Name        string `envconfig:"NAME"`
 	Description string `envconfig:"DESCRIPTION"`
 	Extended    string `envconfig:"EXTENDED"`
