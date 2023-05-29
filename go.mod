@@ -3,7 +3,7 @@ module epgstation_notification
 go 1.18
 
 require (
-	github.com/disgoorg/disgo v0.16.4
+	github.com/disgoorg/disgo v0.16.5
 	github.com/disgoorg/log v1.2.0
 	github.com/disgoorg/snowflake/v2 v2.0.1
 	github.com/kelseyhightower/envconfig v1.4.0
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	github.com/disgoorg/json v1.0.0 // indirect
+	github.com/disgoorg/json v1.1.0 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
