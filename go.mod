@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/disgoorg/disgo v0.16.7
-	github.com/disgoorg/log v1.2.0
+	github.com/disgoorg/log v1.2.1
 	github.com/disgoorg/snowflake/v2 v2.0.1
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/slack-go/slack v0.12.2
