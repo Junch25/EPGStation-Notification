@@ -7,7 +7,7 @@ require (
 	github.com/disgoorg/log v1.2.1
 	github.com/disgoorg/snowflake/v2 v2.0.1
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/slack-go/slack v0.12.3
+	github.com/slack-go/slack v0.12.4
 	github.com/spf13/cobra v1.8.0
 	gopkg.in/yaml.v2 v2.4.0
 )
