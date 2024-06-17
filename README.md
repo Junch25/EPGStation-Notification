@@ -1,5 +1,7 @@
 # EPGStation-Notification
-EPGStationの録画開始・終了・エラーのSlack・Discord通知です。
+EPGStationの録画開始・終了・エラー取得した内容をSlack・Discord通知スクリプトです。  
+Slack and Discord notification script for EPGStation recording start, end, and error acquisition.
+
 
 ## CI/CD
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Junch25/EPGStation-Notification/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Junch25/EPGStation-Notification/tree/main)
