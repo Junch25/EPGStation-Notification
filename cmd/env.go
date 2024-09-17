@@ -1,11 +1,10 @@
 package cmd
 
 import (
-	"os"
-	"path/filepath"
-
 	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v2"
+	"os"
+	"path/filepath"
 )
 
 type cmdEnv struct {
